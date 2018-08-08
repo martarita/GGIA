@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GuessingGame</string>
+    <string name="action_settings">Settings</string>
+    <string name="dr_payne_s_guessing_game">Dr Payne\'s Guessing Game</string>
+    <string name="enter_a_number_between_1_and_100">Enter a number between 1 and 100</string>
+    <string name="button">Button</string>
+    <string name="textview">TextView</string>
+</resources>
