@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
 
         app:layout_constraintRight_toRightOf="parent"
@@ -30,8 +30,9 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="85dp"
-            android:text="@string/dr_payne_s_guessing_game"
-            android:textAppearance="@android:style/TextAppearance.Large" />
+            android:text="New  Sphinx's guessing game"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            />
 
         <TextView
             android:id="@+id/textView2"
@@ -51,9 +52,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="168dp"
             android:ems="10"
+            android:gravity="center_vertical|center_horizontal"
             android:inputType="number"
-            tools:width="75dp"
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor"
+            tools:width="75dp" />
 
         <TextView
             android:id="@+id/lblOutput"
@@ -62,16 +64,15 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="211dp"
-            android:text="@string/textview"
-            tools:text="Enter a number, then click Guess!" />
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Enter a number, then click Guess!" />
 
         <Button
             android:id="@+id/btnGuess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/txtGuess"
-            android:layout_centerHorizontal="true"
-            android:text="Guess" />
+            android:layout_centerInParent="true"
+            android:text="@string/guess" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
