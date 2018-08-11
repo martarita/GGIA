@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public void checkGuess() {
         String guessText = txtGuess.getText().toString();
 
-
+        String Test = "czy branch";
         String message = "";
         try {
             int guess = Integer.parseInt(guessText);
@@ -113,3 +113,5 @@ public class MainActivity extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+
+
