@@ -65,13 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            txtGuess.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    return true; //false jest z automatu i powoduje zniknięcie klawiatury
-                    //POPRAWIC TO NIE DZIALa
-                }
-            });
+
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
@@ -83,7 +77,19 @@ public class MainActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
                 }
             });
+            txtGuess.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    checkGuess();
+                    return false;
+                }
+            });
+
+
         }
+
+
+
 
         @Override
         public boolean onCreateOptionsMenu (Menu menu){
