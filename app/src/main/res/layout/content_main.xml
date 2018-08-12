@@ -15,10 +15,10 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginTop="30dp"
+        android:background="@drawable/sfinx"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
@@ -29,10 +29,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="85dp"
-            android:text="New  Sphinx's guessing game"
-            android:textAppearance="@android:style/TextAppearance.Large"
-            />
+            android:layout_marginTop="31dp"
+
+            android:fontFamily="@font/pythia"
+            android:text="@string/new_sphinx_s_guessing_game"
+            android:textAppearance="@android:style/TextAppearance.Large" />
 
         <TextView
             android:id="@+id/textView2"
@@ -40,39 +41,55 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="129dp"
+            android:layout_marginTop="75dp"
+            android:fontFamily="@font/pythia"
             android:text="@string/enter_a_number_between_1_and_100"
-            android:textAppearance="@android:style/TextAppearance.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/txtGuess"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="74dp"
+            android:layout_height="38dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="168dp"
+            android:layout_alignStart="@+id/lblOutput"
+            android:layout_marginTop="167dp"
+            android:height="20dp"
+            android:background="@color/cardview_light_background"
             android:ems="10"
+            android:fontFamily="@font/pythia"
             android:gravity="center_vertical|center_horizontal"
             android:inputType="number"
             tools:ignore="LabelFor"
-            tools:width="75dp" />
+            tools:width="40dp" />
 
         <TextView
             android:id="@+id/lblOutput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="211dp"
+            android:layout_marginTop="242dp"
+
             android:gravity="center_vertical|center_horizontal"
-            android:text="Enter a number, then click Guess!" />
+            android:text="Enter a number, then click Guess!"
+
+            android:textColor="@android:color/holo_purple"
+            tools:background="#c9ffffff" />
 
         <Button
             android:id="@+id/btnGuess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/guess" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/txtGuess"
+            android:layout_marginEnd="82dp"
+            android:height="30dp"
+            android:fontFamily="@font/pythia"
+            android:text="@string/guess"
+            tools:ignore="RtlCompat"
+            tools:width="40dp" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
