@@ -24,17 +24,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkGuess() {
         String guessText = txtGuess.getText().toString();
-
-
+        int maxNumberOfTries=7;
         String message = "";
         try {
             numberOfTries++;
             int guess = Integer.parseInt(guessText);
-            if (guess < theNumber)
+            if (guess < theNumber && (numberOfTries <= maxNumberOfTries))
                 message = guess + " is too low. Try again";
-            else if (guess > theNumber)
+            else if (guess > theNumber && numberOfTries <= maxNumberOfTries)
                 message = guess + " is too high. Try again";
-            else if (guess > theNumber)
+            else if ((guess > theNumber || guess < theNumber)  && (numberOfTries > maxNumberOfTries))
                 message = "Game Over! Let's play again!";
             else {
                 message = guess + " is correct. You win after " + numberOfTries + " tries!";
