@@ -12,19 +12,23 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private EditText txtGuess;
     private Button btnGuess;
     private TextView lblOutput;
     private int theNumber;
+    private int numberOfTries;
+
 
     public void checkGuess() {
         String guessText = txtGuess.getText().toString();
 
-        String Test = "czy branch";
+
         String message = "";
         try {
+            numberOfTries++;
             int guess = Integer.parseInt(guessText);
             if (guess < theNumber)
                 message = guess + " is too low. Try again";
@@ -33,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
             else if (guess > theNumber)
                 message = "Game Over! Let's play again!";
             else {
-                message = guess + " is correct. You win after ";
+                message = guess + " is correct. You win after " + numberOfTries + " tries!";
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
                 newGame();
             }
         } catch (Exception e) {
@@ -47,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void newGame() {
         theNumber = (int) (Math.random() * 100 + 1);
+        numberOfTries=0;
     }
         @Override
         protected void onCreate (Bundle savedInstanceState){
