@@ -26,36 +26,47 @@ public class MainActivity extends AppCompatActivity {
     private TextView lblOutput;
     private int theNumber;
     private int numberOfTries;
+    private int maxNumberOfTries = 7;
     private int range = 100;
     private TextView lblRange; // zmieena bo w tekscie już nie będzie wybierz liczbe z zakresu 1-100 tylko wybierz z wybranego zakresu
 
     public void checkGuess() {
         String guessText = txtGuess.getText().toString();
-        int maxNumberOfTries = 7;
+        int maxNumberOfTries = (int) (Math.log(range) / Math.log(2) + 1);
         String message = "";
         try {
             numberOfTries++;
             int guess = Integer.parseInt(guessText);
             if (guess < theNumber && (numberOfTries <= maxNumberOfTries))
                 message = guess + " is too low. Try again";
-            else if (guess > theNumber && numberOfTries <= maxNumberOfTries)
+            else if (guess > theNumber && numberOfTries <= maxNumberOfTries) {
                 message = guess + " is too high. Try again";
-            else if ((guess > theNumber || guess < theNumber) && (numberOfTries > maxNumberOfTries))
-                message = "Game Over! Let's play again!";
-            else {
+
+            } else {
                 message = guess + " is correct. You win after " + numberOfTries + " tries!";
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
 
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                        int gamesWon = preferences.getInt("gamesWon", 0)+1;
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putInt("gameWon", gamesWon);
-                        editor.apply();
+                int gamesWon = preferences.getInt("gamesWon", 0) + 1;
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("gameWon", gamesWon);
+                editor.apply();
                 newGame();
             }
         } catch (Exception e) {
             message = "Enter a nubmer between 1 and " + range + ".";
         } finally {
+            if ((numberOfTries > maxNumberOfTries)) {
+                message = "Game Over! Let's play again!";
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                int gamesLost = preferences.getInt("gamesLost", 0) + 1;
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("gameLost", gamesLost);
+                editor.apply();
+                newGame();
+            }
+
+
             lblOutput.setText(message);
             txtGuess.requestFocus(); //dzięki temu kursor znajduje sie w polu tekstowym
             txtGuess.selectAll(); // / zaznacza cały tekst w olu tekstowym co ułatwia korzystanie z gry -
@@ -63,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newGame() {
-        theNumber = (int) (Math.random() * 100 + 1);
+        theNumber = (int) (Math.random() * range + 1);//TU
         lblRange.setText("Enter a nubmer between 1 and " + range + ".");
         txtGuess.setText("" + range / 2);
         txtGuess.requestFocus(); //dzięki temu kursor znajduje sie w polu tekstowym
@@ -83,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         lblOutput = (TextView) findViewById(id.lblOutput);
         lblRange = (TextView) findViewById(id.textView2);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        range=preferences.getInt("range", 100);
+        range = preferences.getInt("range", 100);
         newGame();
         btnGuess.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
 
                 //poniżej kod do tworzenia okna z menu, charsequence to bardziej wypasiony string
-                final CharSequence[] items = {"1 to 10", " 1 to 100", " 1 to 1000"}; // ogarnąć co to charseq
+                final CharSequence[] items = {"1 to 10", " 1 to 100", " 1 to 1000"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Select the Range:");
                 builder.setItems(items, new DialogInterface.OnClickListener() { // listener do wyboru range
@@ -170,6 +181,23 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_newgame:
                 return true;
             case R.id.action_gamestats:
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences((this));
+                int gamesLost = preferences.getInt("gamesLost", 0);
+                int gamesWon = preferences.getInt("gamesWon", 0);
+                AlertDialog statDialog = new AlertDialog.Builder(MainActivity.this).create();
+
+                statDialog.setTitle("Guessing Game Stats");
+                statDialog.setMessage("You have won " + gamesWon + " out\n" + (gamesWon + gamesLost) + " games. It is\n " + (100 * gamesWon / (gamesWon + gamesLost)) + "%");
+                statDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+
+                statDialog.show();
                 return true;
             case R.id.action_about:
                 AlertDialog aboutDialog = new AlertDialog.Builder(MainActivity.this).create();
@@ -195,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
                         onOptionsItemSelected(item);
         }
     }
-
 
 
     // cudo które pozwala na zapisanie w pamięci telefonu ustawieńzakresu liczb -zapis klucz-wartość
